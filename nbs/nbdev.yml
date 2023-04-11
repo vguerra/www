@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "Victor Guerra's blog"
+  site-url: "https://vguerra.github.io/www"
+  description: "Victor Guerra's blog posts"
+  repo-branch: main
+  repo-url: "https://github.com/vguerra/www"
