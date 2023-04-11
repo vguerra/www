@@ -3,18 +3,26 @@ project:
 
 format:
   html:
-    theme: cosmo
+    theme: litera
     css: styles.css
     toc: true
 
 website:
   twitter-card: true
   open-graph: true
-  repo-actions: [issue]
+  repo-actions: none
   navbar:
     background: primary
     search: true
   sidebar:
     style: floating
+  page-footer:
+    center:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/vmguerra/
+      - icon: twitter
+        href: https://twitter.com/vguerra
+      - icon: github
+        href: https://github.com/vguerra
 
 metadata-files: [nbdev.yml, sidebar.yml]
