@@ -12,8 +12,12 @@ website:
   open-graph: true
   repo-actions: none
   navbar:
-    background: primary
+    # background: primary
     search: true
+    left:
+      - text: "Home"
+      - text: "Talks"
+      - text: "About"
   sidebar:
     style: floating
   page-footer:

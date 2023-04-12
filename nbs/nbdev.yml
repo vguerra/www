@@ -2,7 +2,7 @@ project:
   output-dir: _docs
 
 website:
-  title: "Victor Guerra's blog"
+  title: "Blog"
   site-url: "https://vguerra.github.io/www"
   description: "Victor Guerra's blog posts"
   repo-branch: main
