@@ -12,6 +12,7 @@ nbdev_new --lib_name vguerra-blog \
 	--author "Victor Guerra" \
 	--author_email "vguerra@gmail.com" \
 	--description "Victor Guerra's blog" \
-	--black_formatting true
+	--black_formatting true \
+	--custom_sidebar true
 
 

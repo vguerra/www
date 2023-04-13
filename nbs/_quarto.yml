@@ -18,6 +18,15 @@ website:
       - text: "Home"
       - text: "Talks"
       - text: "About"
+        file: about.qmd
+    right:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/vmguerra/
+      - icon: twitter
+        href: https://twitter.com/vguerra
+      - icon: github
+        href: https://github.com/vguerra
+
   sidebar:
     style: floating
   page-footer:
@@ -29,4 +38,4 @@ website:
       - icon: github
         href: https://github.com/vguerra
 
-metadata-files: [nbdev.yml, sidebar.yml]
+metadata-files: [nbdev.yml]
