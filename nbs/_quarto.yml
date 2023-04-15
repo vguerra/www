@@ -1,5 +1,7 @@
 project:
   type: website
+  preview:
+    port: 3000
 
 format:
   html:
@@ -8,6 +10,7 @@ format:
     toc: true
 
 website:
+  site-url: "http://vguerra.net"
   twitter-card: true
   open-graph: true
   repo-actions: none
@@ -15,10 +18,14 @@ website:
     # background: primary
     search: true
     left:
-      - text: "Home"
-      - text: "Talks"
+      - text: "Posts"
+        href: posts/index.qmd
+      - text: "TIL"
+        href: tils/index.qmd
+      - text: "Notes"
+        href: notes/index.qmd
       - text: "About"
-        file: about.qmd
+        href: about.qmd
     right:
       - icon: linkedin
         href: https://www.linkedin.com/in/vmguerra/
