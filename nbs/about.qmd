@@ -4,6 +4,7 @@ about:
     template: jolla
     image: assets/vic.jpeg
     image-shape: rounded
+page-layout: full
 ---
 
 Victor is a Software Engineer that builds scalable ML systems from end to end. He is particularly intereted in the intersection between Compilers and Machine Learning.
