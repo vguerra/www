@@ -1,45 +1,10 @@
 [
   {
-    "objectID": "tils/index.html",
-    "href": "tils/index.html",
-    "title": "Today I Learned",
-    "section": "",
-    "text": "No matching items"
-  },
-  {
-    "objectID": "core.html",
-    "href": "core.html",
-    "title": "core",
-    "section": "",
-    "text": "source\n\nfoo\n\n foo ()"
-  },
-  {
     "objectID": "posts/index.html",
     "href": "posts/index.html",
     "title": "Thoughts on Tech stuff",
     "section": "",
     "text": "No matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "www",
-    "section": "",
-    "text": "This file will become your README and also the index of your documentation."
-  },
-  {
-    "objectID": "index.html#install",
-    "href": "index.html#install",
-    "title": "www",
-    "section": "Install",
-    "text": "Install\npip install www"
-  },
-  {
-    "objectID": "index.html#how-to-use",
-    "href": "index.html#how-to-use",
-    "title": "www",
-    "section": "How to use",
-    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
   },
   {
     "objectID": "about.html",
@@ -53,69 +18,6 @@
     "href": "notes/index.html",
     "title": "Brain dumps",
     "section": "",
-    "text": "A step by step guide to build the HELLO dialect for MLIR\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nNotes on MOJO\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nNotes on MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in the MLIR ecosystem\n\n\n\n\n\n\nApr 14, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html",
-    "href": "notes/mojo/advantages-mojo.html",
-    "title": "Notes on MOJO",
-    "section": "",
-    "text": "Powerful compile time metaprogramming\nIntegration of adaptive compilation techniques\nCaching thorught the compilation flow\nLeverages the MLIR ecosystem\nSystems level programming\nAI/ML\nMember of the Python family (like the big brother of Python)\n\nIt is a superset of Python\nEmbraces Python ecosystem\nUses CPYthon to run Python3 out of the box\nMigrator to move from Python to Mojo - you can progressively move code"
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#advantages-of-using-mojo",
-    "href": "notes/mojo/advantages-mojo.html#advantages-of-using-mojo",
-    "title": "Notes on MOJO",
-    "section": "",
-    "text": "Powerful compile time metaprogramming\nIntegration of adaptive compilation techniques\nCaching thorught the compilation flow\nLeverages the MLIR ecosystem\nSystems level programming\nAI/ML\nMember of the Python family (like the big brother of Python)\n\nIt is a superset of Python\nEmbraces Python ecosystem\nUses CPYthon to run Python3 out of the box\nMigrator to move from Python to Mojo - you can progressively move code"
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#python-problems",
-    "href": "notes/mojo/advantages-mojo.html#python-problems",
-    "title": "Notes on MOJO",
-    "section": "Python problems",
-    "text": "Python problems\n\nNot suitable for systems programming\nComplicated to build hybrid libraries (C/C++), requires low level understanding of CPython. The two world problem. Issues with debuggers, packaging is a pain.\nPushes the “graph based” paradigm, which is not very usable. (Pytorch 2 approach)\nDeployment of Python based applications is challenging, specially when it comes to controlling dependencies."
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#other-approaches-to-improve-python",
-    "href": "notes/mojo/advantages-mojo.html#other-approaches-to-improve-python",
-    "title": "Notes on MOJO",
-    "section": "Other approaches to improve Python",
-    "text": "Other approaches to improve Python\n\nImproving CPython and JIT compiling: Great advances in CPython for Python 3.11 and Python 3.12 will include a trace optimizer. Great efforts but not help to get a unified language onto an accelerator. Systems programmers dont just seek performance, they also want a lot of “predictability and control” over how compute happens.\nPython subsets: For example TorchScript, which uses Python like syntax, they can be easier to learn. Sadly not wide adoption. Generally dont interoperate with the Python ecosystem, missing tooling (debugger). This approaches attempt to solve a weak point of Python, but are not as good as Python’s strong points. This approaches drive fragmentation and incompatibility makes migration difficult.\nEmbedded DSLs in Python: Think of Python decorators. They maintain compatibility with all Python ecosystem. Unfortunately the mini-language usually dont integrate well with debuggers and other workflow tooling."
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#let-and-var",
-    "href": "notes/mojo/advantages-mojo.html#let-and-var",
-    "title": "Notes on MOJO",
-    "section": "let and var",
-    "text": "let and var\nAssign values to a name. let declarations are immutable, var declarations mutable. The values defined use lexical scoping and support name shadowing.\nSupport: type specifiers, patters and late initialization."
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#structs",
-    "href": "notes/mojo/advantages-mojo.html#structs",
-    "title": "Notes on MOJO",
-    "section": "structs",
-    "text": "structs\nStatic, bound at compile time (not lookedup with dictionary indirection) and inlined into their container. Not implicitly indirect nor reference counted.\nAll instance properties must be explicitly declared with var or let, which allows compiler to layout and access property values precisely in memory with no indirection or overhead. Compiler can guarantee static dispatch, use guarandteed static access to fields and inline a struct into the stack frame or enclosing type."
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#strong-type-checking",
-    "href": "notes/mojo/advantages-mojo.html#strong-type-checking",
-    "title": "Notes on MOJO",
-    "section": "Strong type checking",
-    "text": "Strong type checking\nOne of the primary ways to do strong type checking is with struct type."
-  },
-  {
-    "objectID": "notes/mojo/advantages-mojo.html#overloaded-functionsfn-and-methodsdef",
-    "href": "notes/mojo/advantages-mojo.html#overloaded-functionsfn-and-methodsdef",
-    "title": "Notes on MOJO",
-    "section": "Overloaded functions(fn) and methods(def)",
-    "text": "Overloaded functions(fn) and methods(def)\nMojo can infer the data types if you dont specify them, but you can define multiple functions with the same name but with different arguments, everywhere.\nThere is no support overloading soely on result type and does not use result type or contextual type information for type inference.\nfn definitions"
-  },
-  {
-    "objectID": "notes/mlir/hello-dialect.html",
-    "href": "notes/mlir/hello-dialect.html",
-    "title": "A step by step guide to build the HELLO dialect for MLIR",
-    "section": "",
-    "text": "The first step is to set up a CMake file to be able to build all the artifacts for our dialect. For that, we start with the simplest CMakeList.txt file possible:\ncmake_minimum_required(VERSION 3.20.0)\n\nproject(mlir-hello LANGUAGES CXX C)\n\nset(CMAKE_CXX_STANDARD 17 CACHE STRING \"C++ standard to conform to\")\n\nfind_package(MLIR REQUIRED CONFIG)\n\nmessage(STATUS \"Using MLIRConfig.cmake in: ${MLIR_DIR}\")\nmessage(STATUS \"Using LLVMConfig.cmake in: ${LLVM_DIR}\")\nFirst, we name the project and specified the languages needed to build it. C++ and C in this case.\nThen we make sure that we locate the MLIR package (and LLVM subsequentially) and load its specific details.\nThis is the most basic CMake setup that you need to start working on your own dialect. You can already try to build your project, as follows:"
+    "text": "No matching items"
   }
 ]

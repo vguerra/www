@@ -1,1 +1,1 @@
-Sitemap: https://vguerra.github.io/www/sitemap.xml
+Sitemap: http://vguerra.net/sitemap.xml
