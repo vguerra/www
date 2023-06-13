@@ -13,8 +13,8 @@ format:
       dark: [darkly, scss/dark.scss]
     css: scss/styles.css
     code-link: true
-    link-external-icon: true
-    link-external-newwindow: true
+    link-external-icon: false
+    link-external-newwindow: false 
     highlight-style: gruvbox
     df-print: kable
     smooth-scroll: true
