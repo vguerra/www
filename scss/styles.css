@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
-$headings-font-family:                    "Lora", serif !default;
-
+.quarto-title-banner {
+    margin-block-end: 1rem;
+    position: relative;
+    margin-top: -50px;
+    height: 45%;
+}

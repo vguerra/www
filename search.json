@@ -2,7 +2,7 @@
   {
     "objectID": "posts/index.html",
     "href": "posts/index.html",
-    "title": "Thoughts on Tech stuff",
+    "title": "Coding Adventures",
     "section": "",
     "text": "No matching items"
   },
@@ -16,9 +16,9 @@
   {
     "objectID": "notes/index.html",
     "href": "notes/index.html",
-    "title": "Brain dumps",
+    "title": "Notebook Chronicles",
     "section": "",
-    "text": "A step by step guide to build the HELLO dialect for MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nposts\n\n\n\n\nBuilding a dialect from 0, incrementally\n\n\n\n\n\n\nMay 16, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MOJO\n\n\n\n\n\n\n\nmojo\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in MOJO programming language\n\n\n\n\n\n\nMay 3, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in the MLIR ecosystem\n\n\n\n\n\n\nApr 14, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\nNo matching items"
+    "text": "Notes on MOJO\n\n\n\n\n\n\n\nmojo\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in MOJO programming language\n\n\n\n\n\n\nMay 3, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in the MLIR ecosystem\n\n\n\n\n\n\nApr 14, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "notes/mojo/advantages-mojo.html",
@@ -89,12 +89,5 @@
     "title": "Notes on MOJO",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nModular’s official announcement event↩︎"
-  },
-  {
-    "objectID": "notes/mlir/hello-dialect.html",
-    "href": "notes/mlir/hello-dialect.html",
-    "title": "A step by step guide to build the HELLO dialect for MLIR",
-    "section": "",
-    "text": "The first step is to set up a CMake file to be able to build all the artifacts for our dialect. For that, we start with the simplest CMakeList.txt file possible:\ncmake_minimum_required(VERSION 3.20.0)\n\nproject(mlir-hello LANGUAGES CXX C)\n\nset(CMAKE_CXX_STANDARD 17 CACHE STRING \"C++ standard to conform to\")\n\nfind_package(MLIR REQUIRED CONFIG)\n\nmessage(STATUS \"Using MLIRConfig.cmake in: ${MLIR_DIR}\")\nmessage(STATUS \"Using LLVMConfig.cmake in: ${LLVM_DIR}\")\nFirst, we name the project and specified the languages needed to build it. C++ and C in this case.\nThen we make sure that we locate the MLIR package (and LLVM subsequentially) and load its specific details.\nThis is the most basic CMake setup that you need to start working on your own dialect. You can already try to build your project, as follows:\nYou can try to build the initial setup of your project by running the following script:\nrm -rf build\nmkdir build\n\n\npushd build\n\nLLVM_BUILD_DIR=&lt;PATH TO LLVMs BUILD DIRECTORY&gt;\n\ncmake -G Ninja .. \\\n    -DLLVM_DIR=\"$LLVM_BUILD_DIR/lib/cmake/llvm\" \\\n    -DMLIR_DIR=\"$LLVM_BUILD_DIR/lib/cmake/mlir\" \\\n    -DCMAKE_BUILD_TYPE=Debug\n\ncmake --build .\n# cmake --build . --target hello-opt\n\npopd"
   }
 ]
