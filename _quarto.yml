@@ -1,0 +1,66 @@
+project:
+  type: website
+  preview:
+    port: 3000
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    theme:
+      light: [flatly, scss/light.scss]
+      dark: [darkly, scss/dark.scss]
+    css: scss/styles.css
+    code-link: true
+    link-external-icon: true
+    link-external-newwindow: true
+    highlight-style: gruvbox
+    df-print: kable
+    smooth-scroll: true
+    toc: true
+
+website:
+  title: "vguerra"
+  site-url: "http://vguerra.net"
+  favicon: "images/favicon.ico"
+  repo-branch: main
+  repo-url: "https://github.com/vguerra/www"
+  twitter-card: true
+  open-graph: true
+  repo-actions: none
+  navbar:
+    logo: images/dragon-light.png
+    logo-alt: "The baby dragon of complexity"
+    title: false
+    search: true
+    right:
+      - text: "Posts"
+        href: posts/index.qmd
+      - text: "Notes"
+        href: notes/index.qmd
+      - text: "About"
+        href: about.qmd
+      - icon: github
+        href: https://github.com/vguerra
+      - icon: linkedin
+        href: https://www.linkedin.com/in/vmguerra/
+      - icon: twitter
+        href: https://twitter.com/vguerra
+
+  sidebar:
+    style: floating
+
+  page-footer:
+    left: "Published with [Quarto](https://quarto.org/) v<?quarto.version?>"
+    center:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/vmguerra/
+      - icon: twitter
+        href: https://twitter.com/vguerra
+      - icon: github
+        href: https://github.com/vguerra
+    right: "© 2023 [Victor Guerra](/about.html) | [MIT License](https://www.quantumjitter.com/license)"
+
+filters:
+  - quarto-version.lua

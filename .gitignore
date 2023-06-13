@@ -1,5 +1,6 @@
 _docs/
 _proc/
+_site/
 
 *.bak
 .gitattributes
@@ -99,7 +100,7 @@ celerybeat-schedule
 .env
 
 # virtualenv
-.venv
+.venv*
 venv/
 ENV/
 
@@ -149,3 +150,5 @@ checklink/cookies.txt
 
 # Quarto
 .quarto
+
+/.quarto/
