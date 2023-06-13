@@ -16,12 +16,9 @@ $code-bg:                                 lighten($body-bg, 10%) !default;
 $card-border-color:                       $body-color !default;
 $form-select-border-color:                $body-color !default;
 
-/*-- scss:rules
-    padding: 20px 20px;
-    background-image: url("images/dragon-dark.png");
-    background-size: 55px;
-    background-repeat: no-repeat;
---*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+$headings-font-family:                    "Lora", serif !default;
 
 .card-footer {
     color: lighten($body-bg, 30%);

@@ -1,5 +1,5 @@
 ---
-title: "Thoughts on Tech stuff"
+title: "Coding Adventures"
 listing:
     contents: "*.ipynb"
     type: default
@@ -8,5 +8,5 @@ listing:
     categories: true
     feed: true
 page-layout: full
-title-block-banner: false
+title-block-banner: true
 ---

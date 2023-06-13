@@ -1,5 +1,5 @@
 ---
-title: "Brain dumps"
+title: "Notebook Chronicles"
 listing:
     contents: "*.ipynb"
     type: default
