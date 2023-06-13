@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Victor Guerra">
+<meta name="description" content="Key concepts in MOJO programming language">
 
-<title>vguerra - Thoughts on Tech stuff</title>
+<title>vguerra - Notes on MOJO</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +25,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../images/favicon.ico" rel="icon">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -64,44 +64,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../scss/styles.css">
-<link rel="alternate" type="application/rss+xml" title="vguerra" href="index.xml"><meta property="og:title" content="vguerra - Thoughts on Tech stuff">
+<link rel="stylesheet" href="../../scss/styles.css">
+<meta property="og:title" content="vguerra - Notes on MOJO">
+<meta property="og:description" content="Key concepts in MOJO programming language">
 <meta property="og:site-name" content="vguerra">
-<meta name="twitter:title" content="vguerra - Thoughts on Tech stuff">
+<meta name="twitter:title" content="vguerra - Notes on MOJO">
+<meta name="twitter:description" content="Key concepts in MOJO programming language">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -112,8 +83,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/dragon-light.png" alt="The baby dragon of complexity" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/dragon-light.png" alt="The baby dragon of complexity" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -123,15 +94,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../posts/index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../posts/index.html" rel="" target="">
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../notes/index.html" rel="" target="">
+    <a class="nav-link" href="../../notes/index.html" rel="" target="">
  <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -161,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Thoughts on Tech stuff</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notes on MOJO</li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -174,40 +145,150 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#why-mojo" id="toc-why-mojo" class="nav-link active" data-scroll-target="#why-mojo">Why Mojo?</a>
+  <ul class="collapse">
+  <li><a href="#launch-of-mojo-programming-language" id="toc-launch-of-mojo-programming-language" class="nav-link" data-scroll-target="#launch-of-mojo-programming-language">Launch of Mojo programming language</a></li>
+  <li><a href="#advantages-of-using-mojo" id="toc-advantages-of-using-mojo" class="nav-link" data-scroll-target="#advantages-of-using-mojo">Advantages of using Mojo</a></li>
+  <li><a href="#python-problems" id="toc-python-problems" class="nav-link" data-scroll-target="#python-problems">Python problems</a></li>
+  <li><a href="#other-approaches-to-improve-python" id="toc-other-approaches-to-improve-python" class="nav-link" data-scroll-target="#other-approaches-to-improve-python">Other approaches to improve Python</a></li>
+  </ul></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a>
+  <ul class="collapse">
+  <li><a href="#let-and-var" id="toc-let-and-var" class="nav-link" data-scroll-target="#let-and-var"><code>let</code> and <code>var</code></a></li>
+  <li><a href="#structs" id="toc-structs" class="nav-link" data-scroll-target="#structs"><code>struct</code>s</a></li>
+  <li><a href="#strong-type-checking" id="toc-strong-type-checking" class="nav-link" data-scroll-target="#strong-type-checking">Strong type checking</a></li>
+  <li><a href="#overloaded-functionsfn-and-methodsdef" id="toc-overloaded-functionsfn-and-methodsdef" class="nav-link" data-scroll-target="#overloaded-functionsfn-and-methodsdef">Overloaded functions(<code>fn</code>) and methods(<code>def</code>)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Thoughts on Tech stuff</h1>
-</div>
+<h1 class="title">Notes on MOJO</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">mojo</div>
+    <div class="quarto-category">compilers</div>
+    <div class="quarto-category">notes</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Key concepts in MOJO programming language
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Victor Guerra </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, May 3, 2023</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">Tuesday, June 13, 2023</p>
+    </div>
+  </div>
     
   </div>
   
 
 </header>
 
+<section id="why-mojo" class="level1">
+<h1>Why Mojo?</h1>
+<section id="launch-of-mojo-programming-language" class="level2">
+<h2 class="anchored" data-anchor-id="launch-of-mojo-programming-language">Launch of Mojo programming language</h2>
+<p>On May the 2nd 2023, Mojo was announced <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to the world by Modular. Check out the</p>
+</section>
+<section id="advantages-of-using-mojo" class="level2">
+<h2 class="anchored" data-anchor-id="advantages-of-using-mojo">Advantages of using Mojo</h2>
+<ul>
+<li>Powerful compile time metaprogramming</li>
+<li>Integration of adaptive compilation techniques</li>
+<li>Caching thorught the compilation flow</li>
+<li>Leverages the MLIR ecosystem</li>
+<li>Systems level programming</li>
+<li>AI/ML</li>
+<li>Member of the Python family (like the big brother of Python)
+<ul>
+<li>It is a superset of Python</li>
+<li>Embraces Python ecosystem</li>
+<li>Uses CPYthon to run Python3 out of the box</li>
+<li>Migrator to move from Python to Mojo - you can progressively move code</li>
+</ul></li>
+</ul>
+</section>
+<section id="python-problems" class="level2">
+<h2 class="anchored" data-anchor-id="python-problems">Python problems</h2>
+<ul>
+<li>Not suitable for systems programming</li>
+<li>Complicated to build hybrid libraries (C/C++), requires low level understanding of CPython. The two world problem. Issues with debuggers, packaging is a pain.</li>
+<li>Pushes the “graph based” paradigm, which is not very usable. (Pytorch 2 approach)</li>
+<li>Deployment of Python based applications is challenging, specially when it comes to controlling dependencies.</li>
+</ul>
+</section>
+<section id="other-approaches-to-improve-python" class="level2">
+<h2 class="anchored" data-anchor-id="other-approaches-to-improve-python">Other approaches to improve Python</h2>
+<ul>
+<li><p>Improving CPython and JIT compiling: Great advances in CPython for Python 3.11 and Python 3.12 will include a trace optimizer. Great efforts but not help to get a unified language onto an accelerator. Systems programmers dont just seek performance, they also want a lot of “predictability and control” over how compute happens.</p></li>
+<li><p>Python subsets: For example TorchScript, which uses Python like syntax, they can be easier to learn. Sadly not wide adoption. Generally dont interoperate with the Python ecosystem, missing tooling (debugger). This approaches attempt to solve a weak point of Python, but are not as good as Python’s strong points. This approaches drive fragmentation and incompatibility makes migration difficult.</p></li>
+<li><p>Embedded DSLs in Python: Think of Python decorators. They maintain compatibility with all Python ecosystem. Unfortunately the mini-language usually dont integrate well with debuggers and other workflow tooling.</p></li>
+</ul>
+</section>
+</section>
+<section id="features" class="level1">
+<h1>Features</h1>
+<section id="let-and-var" class="level2">
+<h2 class="anchored" data-anchor-id="let-and-var"><code>let</code> and <code>var</code></h2>
+<p>Assign values to a name. <code>let</code> declarations are immutable, <code>var</code> declarations mutable. The values defined use lexical scoping and support name shadowing.</p>
+<p>Support: type specifiers, patters and late initialization.</p>
+</section>
+<section id="structs" class="level2">
+<h2 class="anchored" data-anchor-id="structs"><code>struct</code>s</h2>
+<p>Static, bound at compile time (not lookedup with dictionary indirection) and inlined into their container. Not implicitly indirect nor reference counted.</p>
+<p>All instance properties <em>must</em> be explicitly declared with <code>var</code> or <code>let</code>, which allows compiler to layout and access property values precisely in memory with no indirection or overhead. Compiler can guarantee static dispatch, use guarandteed static access to fields and inline a struct into the stack frame or enclosing type.</p>
+</section>
+<section id="strong-type-checking" class="level2">
+<h2 class="anchored" data-anchor-id="strong-type-checking">Strong type checking</h2>
+<p>One of the primary ways to do strong type checking is with <code>struct</code> type.</p>
+</section>
+<section id="overloaded-functionsfn-and-methodsdef" class="level2">
+<h2 class="anchored" data-anchor-id="overloaded-functionsfn-and-methodsdef">Overloaded functions(<code>fn</code>) and methods(<code>def</code>)</h2>
+<p>Mojo can infer the data types if you dont specify them, but you can define multiple functions with the same name but with different arguments, everywhere.</p>
+<p>There is no support overloading soely on result type and does not use result type or contextual type information for type inference.</p>
+<p><code>fn</code> definitions</p>
 
 
+</section>
+</section>
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<ol>
+<li id="fn1"><p><a href="https://www.modular.com/blog/a-unified-extensible-platform-to-superpower-your-ai">Modular’s official announcement event</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -582,11 +663,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </li>  
 </ul>
     </div>
-    <div class="nav-footer-right">© 2023 <a href="../about.html">Victor Guerra</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
+    <div class="nav-footer-right">© 2023 <a href="../../about.html">Victor Guerra</a> | <a href="https://www.quantumjitter.com/license">MIT License</a></div>
   </div>
 </footer>
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

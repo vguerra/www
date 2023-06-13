@@ -74,9 +74,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -191,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="compilers">compilers <span class="quarto-category-count">(3)</span></div><div class="category" data-category="mlir">mlir <span class="quarto-category-count">(2)</span></div><div class="category" data-category="mojo">mojo <span class="quarto-category-count">(1)</span></div><div class="category" data-category="notes">notes <span class="quarto-category-count">(2)</span></div><div class="category" data-category="posts">posts <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -204,7 +204,129 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="mlir,compilers,posts" data-listing-date-sort="1684195200000" data-listing-file-modified-sort="1686660702021" data-listing-date-modified-sort="1686660702000" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="../notes/mlir/hello-dialect.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="../notes/mlir/hello-dialect.html">
+<h3 class="no-anchor listing-title">
+A step by step guide to build the HELLO dialect for MLIR
+</h3>
+<div class="listing-subtitle">
 
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('mlir'); return false;">
+mlir
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('compilers'); return false;">
+compilers
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('posts'); return false;">
+posts
+</div>
+</div>
+<a href="../notes/mlir/hello-dialect.html">
+<div class="listing-description">
+<p>Building a dialect from 0, incrementally</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../notes/mlir/hello-dialect.html">
+<div class="listing-date">
+May 16, 2023
+</div>
+<div class="listing-author">
+Victor Guerra
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="mojo,compilers,notes" data-listing-date-sort="1683072000000" data-listing-file-modified-sort="1686660702021" data-listing-date-modified-sort="1686660702000" data-listing-reading-time-sort="3">
+<div class="thumbnail">
+<p><a href="../notes/mojo/advantages-mojo.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="../notes/mojo/advantages-mojo.html">
+<h3 class="no-anchor listing-title">
+Notes on MOJO
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('mojo'); return false;">
+mojo
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('compilers'); return false;">
+compilers
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('notes'); return false;">
+notes
+</div>
+</div>
+<a href="../notes/mojo/advantages-mojo.html">
+<div class="listing-description">
+<p>Key concepts in MOJO programming language</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../notes/mojo/advantages-mojo.html">
+<div class="listing-date">
+May 3, 2023
+</div>
+<div class="listing-author">
+Victor Guerra
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="mlir,compilers,notes" data-listing-date-sort="1681430400000" data-listing-file-modified-sort="1686660702021" data-listing-date-modified-sort="1686660702000" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="../notes/mlir/mlir-notes.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
+</div>
+<div class="body">
+<a href="../notes/mlir/mlir-notes.html">
+<h3 class="no-anchor listing-title">
+Notes on MLIR
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('mlir'); return false;">
+mlir
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('compilers'); return false;">
+compilers
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('notes'); return false;">
+notes
+</div>
+</div>
+<a href="../notes/mlir/mlir-notes.html">
+<div class="listing-description">
+<p>Key concepts in the MLIR ecosystem</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../notes/mlir/mlir-notes.html">
+<div class="listing-date">
+Apr 14, 2023
+</div>
+<div class="listing-author">
+Victor Guerra
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items

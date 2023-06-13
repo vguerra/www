@@ -2,14 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://vguerra.net/posts/index.html</loc>
-    <lastmod>2023-06-13T12:35:58.220Z</lastmod>
+    <lastmod>2023-06-13T12:52:01.709Z</lastmod>
   </url>
   <url>
     <loc>http://vguerra.net/about.html</loc>
-    <lastmod>2023-06-13T12:36:00.424Z</lastmod>
+    <lastmod>2023-06-13T12:52:04.081Z</lastmod>
   </url>
   <url>
     <loc>http://vguerra.net/notes/index.html</loc>
-    <lastmod>2023-06-13T12:36:00.832Z</lastmod>
+    <lastmod>2023-06-13T12:52:04.917Z</lastmod>
+  </url>
+  <url>
+    <loc>http://vguerra.net/notes/mojo/advantages-mojo.html</loc>
+    <lastmod>2023-06-13T12:52:05.569Z</lastmod>
+  </url>
+  <url>
+    <loc>http://vguerra.net/notes/mlir/mlir-notes.html</loc>
+    <lastmod>2023-06-13T12:52:06.005Z</lastmod>
+  </url>
+  <url>
+    <loc>http://vguerra.net/notes/mlir/hello-dialect.html</loc>
+    <lastmod>2023-06-13T12:52:06.605Z</lastmod>
   </url>
 </urlset>

@@ -5,6 +5,10 @@
   },
   {
     "listing": "/notes/index.html",
-    "items": []
+    "items": [
+      "/notes/mlir/hello-dialect.html",
+      "/notes/mojo/advantages-mojo.html",
+      "/notes/mlir/mlir-notes.html"
+    ]
   }
 ]
