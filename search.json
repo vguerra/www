@@ -1,17 +1,17 @@
 [
   {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Coding Adventures",
-    "section": "",
-    "text": "No matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Victor Guerra",
     "section": "",
     "text": "Victor is a Software Engineer that builds scalable ML systems from end to end. He is particularly intereted in the intersection between Compilers and Machine Learning."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Coding Adventures",
+    "section": "",
+    "text": "No matching items"
   },
   {
     "objectID": "notes/index.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Victor Guerra">
-<meta name="description" content="Building a dialect from 0, incrementally">
+<meta name="description" content="Building a MLIR dialect from 0">
 
 <title>vguerra - A step by step guide to build the HELLO dialect for MLIR</title>
 <style>
@@ -103,10 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../../scss/styles.css">
 <meta property="og:title" content="vguerra - A step by step guide to build the HELLO dialect for MLIR">
-<meta property="og:description" content="Building a dialect from 0, incrementally">
+<meta property="og:description" content="Building a MLIR dialect from 0">
 <meta property="og:site-name" content="vguerra">
 <meta name="twitter:title" content="vguerra - A step by step guide to build the HELLO dialect for MLIR">
-<meta name="twitter:description" content="Building a dialect from 0, incrementally">
+<meta name="twitter:description" content="Building a MLIR dialect from 0">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -178,11 +178,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#overview-of-the-hello-dialect" id="toc-overview-of-the-hello-dialect" class="nav-link" data-scroll-target="#overview-of-the-hello-dialect">Overview of the Hello dialect</a></li>
+  <li><a href="#setting-up-the-build-system" id="toc-setting-up-the-build-system" class="nav-link" data-scroll-target="#setting-up-the-build-system">Setting up the build system</a></li>
+  <li><a href="#defining-the-dialect" id="toc-defining-the-dialect" class="nav-link" data-scroll-target="#defining-the-dialect">Defining the dialect</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -196,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    Building a dialect from 0, incrementally
+    Building a MLIR dialect from 0
   </div>
 </div>
 
@@ -220,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">Tuesday, June 13, 2023</p>
+      <p class="date-modified">Friday, June 16, 2023</p>
     </div>
   </div>
     
@@ -229,7 +238,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>The first step is to set up a CMake file to be able to build all the artifacts for our dialect. For that, we start with the simplest <code>CMakeList.txt</code> file possible:</p>
+<p>In this series of posts, we are going to see how to build from scratch a MLIR dialect. The dialect we are building here is the <a href="https://github.com/Lewuathe/mlir-hello"><em>MLIR Hello Dialect</em></a> by <a href="https://www.lewuathe.com/">Kai Sasaki</a>.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>Throught the different posts I am going to assume you have a local build of MLIR. If you don’t, you can checkout the <a href="https://mlir.llvm.org/getting_started/">official getting started guide</a> for MLIR.</p>
+</section>
+<section id="overview-of-the-hello-dialect" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-the-hello-dialect">Overview of the Hello dialect</h2>
+<p>The hello dialect provides 3 basic operations:</p>
+<ul>
+<li><code>hello.constant</code>: Constant operation that turns a literal into a SSA value.</li>
+<li><code>hello.print</code>: You guessed it, a print operation.</li>
+<li><code>hello.world</code>: Operation that prints “Hello, World”.</li>
+</ul>
+<p>For a more detialed description of the operations checkout the <a href="https://github.com/Lewuathe/mlir-hello#operations">README of the Hello Dialect repo</a>.</p>
+</section>
+<section id="setting-up-the-build-system" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-the-build-system">Setting up the build system</h2>
+<p>We start by setting up CMake with a minimal set of commands to build our project, for that we need a <code>CMakeList.txt</code> file:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.20.0</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(mlir-hello <span class="ot">LANGUAGES</span> <span class="ot">CXX</span> <span class="ot">C</span>)</span>
@@ -240,10 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using MLIRConfig.cmake in: </span><span class="dv">${MLIR_DIR}</span><span class="st">"</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using LLVMConfig.cmake in: </span><span class="dv">${LLVM_DIR}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>First, we name the project and specified the languages needed to build it. <code>C++</code> and <code>C</code> in this case.</p>
-<p>Then we make sure that we locate the <code>MLIR</code> package (and <code>LLVM</code> subsequentially) and load its specific details.</p>
-<p>This is the most basic <code>CMake</code> setup that you need to start working on your own dialect. You can already try to build your project, as follows:</p>
-<p>You can try to build the initial setup of your project by running the following script:</p>
+<p>First, we name the project <code>mlir-hello</code> and specified the languages needed to build it. <code>C++</code> and <code>C</code> in this case. Then we make sure that we locate the <code>MLIR</code> package (and <code>LLVM</code> subsequentially) and load its specific details. This is the most basic <code>CMake</code> setup that you need to start working on your own dialect. You can already try to build your project using this <code>bash</code> script:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> build</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -258,11 +281,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Debug</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># cmake --build . --target hello-opt</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="bu">popd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">popd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that <code>LLVM_BUILD_DIR</code> should point to the <code>build</code> directory of your local MLIR build.</p>
+</section>
+<section id="defining-the-dialect" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-dialect">Defining the dialect</h2>
+<p>Now we move forward to define the Hello Dialect in the <a href="https://mlir.llvm.org/docs/DefiningDialects/Operations/">ODS</a> format.</p>
+<pre class="tablegen"><code>#ifndef HELLO_DIALECT
+#define HELLO_DIALECT
+
+include "mlir/IR/OpBase.td"
+
+//===----------------------------------------------------------------------===//
+// Hello dialect definition.
+//===----------------------------------------------------------------------===//
+
+def Hello_Dialect : Dialect {
+    let name = "hello";
+    let summary = "A hello out-of-tree MLIR dialect.";
+    let description = [{
+        This dialect is minimal example to implement hello-world kind of sample code
+        for MLIR.
+    }];
+    let cppNamespace = "::hello";
+    let hasConstantMaterializer = 1;
+}
+
+#endif // HELLO_DIALECT</code></pre>
+<p>Let’s name this file <code>HelloDialect.td</code>. But, where do we place it? Following the recommendation of <a href="https://mlir.llvm.org/docs/Tutorials/CreatingADialect/"><code>Creating a Dialect</code></a> tutorial, we should place the <code>TableGen</code> files in the <code>include</code> directory. So let’s create the following layout of directories:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> include/</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> Hello/</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> HelloDialect.td</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s have a look at what the newly introduced <code>CMakeLists.txt</code> files should be.</p>
+<p><code>./include/CMakeLists.txt</code> is simple, we just need to signal the existance of the <code>Hello</code> directory:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(Hello)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>./include/Hello/CMakeLists.txt</code> contains some <code>MLIR</code> related commands:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_dialect</span>(HelloDialect hello)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_doc</span>(HelloDialect HelloDialect Hello/ -gen-dialect-doc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>add_mlir_dialect</code> declares a dialect in the include directory. Its parameters are the dialect name and the namespace to be used.</p>
+<p><code>add_mlir_doc</code> generates the documenation for the dialect. Its parameters are the td filename, the name of the output markdown file, the name of the directory where to put the documentation and finally the command to execute.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
