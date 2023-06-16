@@ -1,0 +1,7 @@
+---
+title: "404: Page not found"
+---
+
+The page you requested was not found, it might have been moved or renamed.
+
+You can have a look in [posts](posts/index.qmd) and [notes](notes/index.qmd) to see if you can find it.
