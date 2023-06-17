@@ -1,5 +1,14 @@
 [
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/index.html",
+      "/notes/index.html",
+      "/notes/mojo/advantages-mojo.html",
+      "/notes/mlir/mlir-notes.html"
+    ]
+  },
+  {
     "listing": "/posts/index.html",
     "items": []
   },
