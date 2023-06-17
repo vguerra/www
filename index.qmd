@@ -1,0 +1,21 @@
+---
+sidebar: false
+description: "Technical blogs and notes on compilers, machine learning and data science."
+image: quarto.png
+toc: true
+listing:
+  date-format: short
+  feed: true
+  filter-ui: false
+  type: grid
+  sort-ui: false
+  sort: "date desc"
+  categories: false
+  fields: [date, title]
+  id: blog-listings
+  contents: [posts, notes]
+aliases: ["blog/"]
+format:
+  html:
+    anchor-sections: true
+---
