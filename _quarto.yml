@@ -14,13 +14,14 @@ format:
     css: scss/styles.css
     code-link: true
     link-external-icon: false
-    link-external-newwindow: false 
+    link-external-newwindow: false
     highlight-style: gruvbox
     df-print: kable
     smooth-scroll: true
     toc: true
 
 website:
+  google-analytics: "G-LV0VDL9S7D"
   title: "vguerra"
   site-url: "http://vguerra.net"
   favicon: "images/favicon.ico"
