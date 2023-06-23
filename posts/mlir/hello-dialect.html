@@ -98,6 +98,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-LV0VDL9S7D"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LV0VDL9S7D', { 'anonymize_ip': true});
+</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
 
@@ -187,6 +196,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview-of-the-hello-dialect" id="toc-overview-of-the-hello-dialect" class="nav-link" data-scroll-target="#overview-of-the-hello-dialect">Overview of the Hello dialect</a></li>
   <li><a href="#setting-up-the-build-system" id="toc-setting-up-the-build-system" class="nav-link" data-scroll-target="#setting-up-the-build-system">Setting up the build system</a></li>
   <li><a href="#defining-the-dialect" id="toc-defining-the-dialect" class="nav-link" data-scroll-target="#defining-the-dialect">Defining the dialect</a></li>
+  <li><a href="#generating-documentation-and-include-files" id="toc-generating-documentation-and-include-files" class="nav-link" data-scroll-target="#generating-documentation-and-include-files">Generating documentation and include files</a></li>
+  <li><a href="#dialect-operations" id="toc-dialect-operations" class="nav-link" data-scroll-target="#dialect-operations">Dialect Operations</a></li>
   </ul>
 </nav>
     </div>
@@ -199,6 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">mlir</div>
     <div class="quarto-category">compilers</div>
+    <div class="quarto-category">build-systems</div>
     <div class="quarto-category">posts</div>
   </div>
   </div>
@@ -229,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">Saturday, June 17, 2023</p>
+      <p class="date-modified">Friday, June 23, 2023</p>
     </div>
   </div>
     
@@ -255,76 +267,293 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setting-up-the-build-system" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-the-build-system">Setting up the build system</h2>
-<p>We start by setting up CMake with a minimal set of commands to build our project, for that we need a <code>CMakeList.txt</code> file:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.20.0</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(mlir-hello <span class="ot">LANGUAGES</span> <span class="ot">CXX</span> <span class="ot">C</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD</span> 17 <span class="ot">CACHE</span> <span class="ot">STRING</span> <span class="st">"C++ standard to conform to"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(MLIR <span class="ot">REQUIRED</span> <span class="ot">CONFIG</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using MLIRConfig.cmake in: </span><span class="dv">${MLIR_DIR}</span><span class="st">"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using LLVMConfig.cmake in: </span><span class="dv">${LLVM_DIR}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>First, we name the project <code>mlir-hello</code> and specified the languages needed to build it. <code>C++</code> and <code>C</code> in this case. Then we make sure that we locate the <code>MLIR</code> package (and <code>LLVM</code> subsequentially) and load its specific details. This is the most basic <code>CMake</code> setup that you need to start working on your own dialect. You can already try to build your project using this <code>bash</code> script:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> build</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<p>We start by creating a directory for our project, we name it <code>hello-dialect</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> mkdir <span class="ex">hello-dialect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And we proceed to set up CMake with a minimal set of commands to configure and build our project, for that we need a <code>CMakeList.txt</code> file:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">cmake_minimum_required</span>(<span class="ot">VERSION</span> <span class="dt">3.20.0</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">project</span>(mlir-hello <span class="ot">LANGUAGES</span> <span class="ot">CXX</span> <span class="ot">C</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">pushd</span> build</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span>(<span class="dv">CMAKE_CXX_STANDARD</span> 17 <span class="ot">CACHE</span> <span class="ot">STRING</span> <span class="st">"C++ standard to conform to"</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="va">LLVM_BUILD_DIR</span><span class="op">=&lt;</span>PATH <span class="ex">TO</span> LLVMs BUILD DIRECTORY<span class="op">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">find_package</span>(MLIR <span class="ot">REQUIRED</span> <span class="ot">CONFIG</span>)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> Ninja .. <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DLLVM_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">$LLVM_BUILD_DIR</span><span class="st">/lib/cmake/llvm"</span> <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DMLIR_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">$LLVM_BUILD_DIR</span><span class="st">/lib/cmake/mlir"</span> <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Debug</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> .</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">popd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that <code>LLVM_BUILD_DIR</code> should point to the <code>build</code> directory of your local MLIR build.</p>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using MLIRConfig.cmake in: </span><span class="dv">${MLIR_DIR}</span><span class="st">"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">message</span>(<span class="ot">STATUS</span> <span class="st">"Using LLVMConfig.cmake in: </span><span class="dv">${LLVM_DIR}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First, we name the project <code>mlir-hello</code> and specified the languages needed to build it. <code>C++</code> and <code>C</code> in this case. Then we make sure that we locate the <code>MLIR</code> package (and <code>LLVM</code> subsequentially) and load its specific details. This is the most basic <code>CMake</code> setup that you need to start working on your own dialect. You can already try to build your project using this <code>bash</code> script:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> build</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> build</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">pushd</span> build</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">LLVM_BUILD_DIR</span><span class="op">=&lt;</span>PATH <span class="ex">TO</span> LLVMs BUILD DIRECTORY<span class="op">&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-G</span> Ninja .. <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DLLVM_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">$LLVM_BUILD_DIR</span><span class="st">/lib/cmake/llvm"</span> <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DMLIR_DIR</span><span class="op">=</span><span class="st">"</span><span class="va">$LLVM_BUILD_DIR</span><span class="st">/lib/cmake/mlir"</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Debug</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">popd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s name it <code>build.sh</code>. Note that <code>LLVM_BUILD_DIR</code> should point to the <code>build</code> directory of your local MLIR build.</p>
+<p>If we run our <code>build.sh</code> script. We see the following output:</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>$<span class="op">&gt;</span> .<span class="op">/</span>build.sh</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Using MLIRConfig.cmake <span class="kw">in</span>: <span class="op">&lt;</span>PATH TO LLVMs BUILD DIRECTORY<span class="op">&gt;/</span>build<span class="op">/</span>lib<span class="op">/</span>cmake<span class="op">/</span>mlir</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Using LLVMConfig.cmake <span class="kw">in</span>: <span class="op">&lt;</span>PATH TO LLVMs BUILD DIRECTORY<span class="op">&gt;/</span>build<span class="op">/</span>lib<span class="op">/</span>cmake<span class="op">/</span>llvm</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Configuring done</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Generating done</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">--</span> Build files have been written to: <span class="op">&lt;</span>PATH TO PROJECT DIRECTORY<span class="op">&gt;/</span>hello<span class="op">-</span>dialect<span class="op">/</span>build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="defining-the-dialect" class="level2">
 <h2 class="anchored" data-anchor-id="defining-the-dialect">Defining the dialect</h2>
-<p>Now we move forward to define the Hello Dialect in the <a href="https://mlir.llvm.org/docs/DefiningDialects/Operations/">ODS</a> format.</p>
-<pre class="tablegen"><code>#ifndef HELLO_DIALECT
-#define HELLO_DIALECT
-
-include "mlir/IR/OpBase.td"
-
-//===----------------------------------------------------------------------===//
-// Hello dialect definition.
-//===----------------------------------------------------------------------===//
-
-def Hello_Dialect : Dialect {
-    let name = "hello";
-    let summary = "A hello out-of-tree MLIR dialect.";
-    let description = [{
-        This dialect is minimal example to implement hello-world kind of sample code
-        for MLIR.
-    }];
-    let cppNamespace = "::hello";
-    let hasConstantMaterializer = 1;
-}
-
-#endif // HELLO_DIALECT</code></pre>
+<p>Now we move forward to define the Hello Dialect in the <a href="https://mlir.llvm.org/docs/DefiningDialects/Operations/">ODS</a> format. Let’s start with the most basic definition.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#ifndef HELLO_DIALECT</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define HELLO_DIALECT</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>include <span class="st">"mlir/IR/OpBase.td"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">//===----------------------------------------------------------------------===//</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Hello dialect definition.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">//===----------------------------------------------------------------------===//</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>def Hello_Dialect <span class="op">:</span> Dialect <span class="op">{</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    let name <span class="op">=</span> <span class="st">"hello"</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    let summary <span class="op">=</span> <span class="st">"A hello out-of-tree MLIR dialect."</span><span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    let description <span class="op">=</span> <span class="op">[{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        This dialect is minimal example to implement hello<span class="op">-</span>world kind of sample code</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> MLIR<span class="op">.</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}];</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    let cppNamespace <span class="op">=</span> <span class="st">"::hello"</span><span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    let hasConstantMaterializer <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif </span><span class="co">// HELLO_DIALECT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s name this file <code>HelloDialect.td</code>. But, where do we place it? Following the recommendation of <a href="https://mlir.llvm.org/docs/Tutorials/CreatingADialect/"><code>Creating a Dialect</code></a> tutorial, we should place the <code>TableGen</code> files in the <code>include</code> directory. So let’s create the following layout of directories:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> CMakeLists.txt</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> include/</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> CMakeLists.txt</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> Hello/</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> CMakeLists.txt</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> HelloDialect.td</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> include/</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> Hello/</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> HelloDialect.td</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s have a look at what the newly introduced <code>CMakeLists.txt</code> files should be.</p>
 <p><code>./include/CMakeLists.txt</code> is simple, we just need to signal the existance of the <code>Hello</code> directory:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(Hello)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">add_subdirectory</span>(Hello)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>./include/Hello/CMakeLists.txt</code> contains some <code>MLIR</code> related commands:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_dialect</span>(HelloDialect hello)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_doc</span>(HelloDialect HelloDialect Hello/ -gen-dialect-doc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_dialect</span>(HelloDialect hello)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_doc</span>(HelloDialect HelloDialect Hello/ -gen-dialect-doc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>add_mlir_dialect</code> declares a dialect in the include directory. Its parameters are the dialect name and the namespace to be used.</p>
-<p><code>add_mlir_doc</code> generates the documenation for the dialect. Its parameters are the td filename, the name of the output markdown file, the name of the directory where to put the documentation and finally the command to execute.</p>
+<p><code>add_mlir_doc</code> generates the documenation for the dialect. Its parameters are the td filename, the name of the output markdown file, the name of the directory where to put the documentation and the command to execute.</p>
+</section>
+<section id="generating-documentation-and-include-files" class="level2">
+<h2 class="anchored" data-anchor-id="generating-documentation-and-include-files">Generating documentation and include files</h2>
+<p>Next, lets run our <code>build.sh</code> script to generate the build files and explore some of the new ninja targets that have been generated.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>$<span class="op">&gt;</span> .<span class="op">/</span>build.sh <span class="op">&amp;&amp;</span> ninja <span class="op">-</span>C build <span class="op">-</span>t targets</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>mlir<span class="op">-</span>headers: phony</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>mlir<span class="op">-</span>doc: phony</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>HelloDialectDocGen: phony</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>MLIRHelloDialectIncGen: phony</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Among the listed targets, we got <code>HelloDialectDocGen</code> that will generate our dialect documentation and <code>MLIRHelloDialectIncGen</code> that generates C++ files that contain our dialect definition and declaration. But those targets are linked to <code>mlir-doc</code> and <code>mlir-headers</code> targets respectively.</p>
+<p>Let’s generate first the docs with the <code>mlir-doc</code> target:</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>$<span class="op">&gt;</span> ninja <span class="op">-</span>C build mlir<span class="op">-</span>doc</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ninja: Entering directory `build<span class="st">'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="er">[1/2] Building HelloDialect.md...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Having a look at the <code>build</code> directory, we notice the generated markdown file. Not much content in there but it is a good start.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> tree <span class="ex">./build/docs</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./build/docs</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> Hello</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> HelloDialect.md</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 1 file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, header files:</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>$<span class="op">&gt;</span> ninja <span class="op">-</span>C build mlir<span class="op">-</span>headers</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>ninja: Entering directory `build<span class="st">'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="er">[6/6] Building HelloDialectTypes.h.inc...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;shellscript&quot;}">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>$<span class="op">&gt;</span> tree .<span class="op">/</span>build<span class="op">/</span>include</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>.<span class="op">/</span>build<span class="op">/</span>include</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>├── CMakeFiles</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>├── Hello</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── CMakeFiles</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.cpp.inc</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.cpp.inc.d</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.h.inc</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.h.inc.d</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.md</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialect.md.d</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectDialect.cpp.inc</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectDialect.cpp.inc.d</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectDialect.h.inc</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectDialect.h.inc.d</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectTypes.cpp.inc</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectTypes.cpp.inc.d</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectTypes.h.inc</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; ├── HelloDialectTypes.h.inc.d</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>│&nbsp;&nbsp; └── cmake_install.cmake</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>└── cmake_install.cmake</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> directories, <span class="dv">16</span> files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>At this very early stage, if you hav a look at <code>./build/include/Hello/HelloDialectDialect.cpp.inc</code> you’ll find the <code>C++</code> dialect definition:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">/*===- TableGen'erated file -------------------------------------*- C++ -*-===*\</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">|*                                                                            *|</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">|* Dialect Definitions                                                        *|</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">|*                                                                            *|</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">|* Automatically generated file, do not edit!                                 *|</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">|*                                                                            *|</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">\*===----------------------------------------------------------------------===*/</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>MLIR_DEFINE_EXPLICIT_TYPE_ID<span class="op">(::</span>hello<span class="op">::</span>HelloDialect<span class="op">)</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="kw">namespace</span> hello <span class="op">{</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>HelloDialect<span class="op">::</span>HelloDialect<span class="op">(::</span>mlir<span class="op">::</span>MLIRContext <span class="op">*</span>context<span class="op">)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="op">::</span>mlir<span class="op">::</span>Dialect<span class="op">(</span>getDialectNamespace<span class="op">(),</span> context<span class="op">,</span> <span class="op">::</span>mlir<span class="op">::</span>TypeID<span class="op">::</span>get<span class="op">&lt;</span>HelloDialect<span class="op">&gt;())</span> <span class="op">{</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  initialize<span class="op">();</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>HelloDialect<span class="op">::~</span>HelloDialect<span class="op">()</span> <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// namespace hello</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dialect-operations" class="level1">
+<h1>Dialect Operations</h1>
+<p>In order to introduce our Hello operations, we need the base operation <code>Hello_Op</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Hello_Op<span class="op">&lt;</span>string mnemonic<span class="op">,</span> list<span class="op">&lt;</span>Trait<span class="op">&gt;</span> traits <span class="op">=</span> <span class="op">[]&gt;</span> <span class="op">:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        Op<span class="op">&lt;</span>Hello_Dialect<span class="op">,</span> mnemonic<span class="op">,</span> traits<span class="op">&gt;;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Based on it, we can introduce the 3 operations we need:</p>
+<ul>
+<li><code>hello.constant</code>:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>def ConstantOp <span class="op">:</span> Hello_Op<span class="op">&lt;</span><span class="st">"constant"</span><span class="op">,</span> <span class="op">[</span>Pure<span class="op">]&gt;</span> <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  let summary <span class="op">=</span> <span class="st">"constant"</span><span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  let description <span class="op">=</span> <span class="op">[{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    Constant operation turns a literal into an SSA value<span class="op">.</span> The data is attached</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    to the operation as an attribute<span class="op">.</span> For example<span class="op">:</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="er">```</span>mlir</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="op">%</span><span class="dv">0</span> <span class="op">=</span> <span class="st">"hello.constant"</span><span class="op">()</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="op">{</span> value <span class="op">=</span> dense<span class="op">&lt;[[</span><span class="dv">1</span><span class="er">.0</span><span class="op">,</span><span class="at"> </span><span class="dv">2</span><span class="er">.0</span><span class="op">,</span><span class="at"> </span><span class="dv">3</span><span class="er">.0</span><span class="op">],</span><span class="at"> </span><span class="op">[</span><span class="dv">4</span><span class="er">.0</span><span class="op">,</span><span class="at"> </span><span class="dv">5</span><span class="er">.0</span><span class="op">,</span><span class="at"> </span><span class="dv">6</span><span class="er">.0</span><span class="op">]]&gt;</span> <span class="op">:</span> tensor<span class="op">&lt;</span><span class="dv">2</span><span class="er">x3xf64</span><span class="op">&gt;</span> <span class="op">}</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> <span class="op">()</span> <span class="op">-&gt;</span> tensor<span class="op">&lt;</span><span class="dv">2</span><span class="er">x3xf64</span><span class="op">&gt;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="er">```</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">}];</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  let builders <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    OpBuilder<span class="op">&lt;(</span>ins <span class="st">"mlir::DenseElementsAttr"</span><span class="op">:</span><span class="er">$</span>value<span class="op">),</span> <span class="op">[{</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>      build<span class="op">(</span><span class="er">$</span>_builder<span class="op">,</span> <span class="er">$</span>_state<span class="op">,</span> value<span class="op">.</span>getType<span class="op">(),</span> value<span class="op">);</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}]&gt;,</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    OpBuilder<span class="op">&lt;(</span>ins <span class="st">"double"</span><span class="op">:</span><span class="er">$</span>value<span class="op">)&gt;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">];</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">//  let parser = [{ return ::parseConstantOp(parser, result); }];</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  let arguments <span class="op">=</span> <span class="op">(</span>ins F64ElementsAttr<span class="op">:</span><span class="er">$</span>value<span class="op">);</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  let results <span class="op">=</span> <span class="op">(</span>outs F64Tensor<span class="op">);</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>hello.print</code>:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>def PrintOp <span class="op">:</span> Hello_Op<span class="op">&lt;</span><span class="st">"print"</span><span class="op">,</span> <span class="op">[</span>Pure<span class="op">]&gt;</span> <span class="op">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    let summary <span class="op">=</span> <span class="st">"print operation"</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    let description <span class="op">=</span> <span class="op">[{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        The <span class="st">"print"</span> builtin operation prints a given input tensor<span class="op">,</span> <span class="kw">and</span> produces</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        no results<span class="op">.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}];</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The print operation takes an input tensor to print.</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    let arguments <span class="op">=</span> <span class="op">(</span>ins AnyTypeOf<span class="op">&lt;[</span>F64Tensor<span class="op">,</span> F64MemRef<span class="op">]&gt;:</span><span class="er">$</span>input<span class="op">);</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    let assemblyFormat <span class="op">=</span> <span class="st">"$input attr-dict `:` type($input)"</span><span class="op">;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="er">```</span>cpp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>hello.world</code>:</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>def WorldOp <span class="op">:</span> Hello_Op<span class="op">&lt;</span><span class="st">"world"</span><span class="op">,</span> <span class="op">[</span>Pure<span class="op">]&gt;</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    let summary <span class="op">=</span> <span class="st">"print Hello, World"</span><span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    let description <span class="op">=</span> <span class="op">[{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        The <span class="st">"world"</span> operation prints <span class="st">"Hello, World"</span><span class="op">,</span> <span class="kw">and</span> produces</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        no results<span class="op">.</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}];</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We place all this definitions in a file called <code>HelloOps.td</code> within our <code>include/Hello</code> directory. You can have a look at the entire definition of the <a href="https://github.com/Lewuathe/mlir-hello/blob/main/include/Hello/HelloOps.td"><code>HelloOps.td</code></a> file in the github repo.</p>
+<p>One thing important to note is that you need to include the definition of the dialect using the tablegen’s <code>include</code> <a href="https://bcain-llvm.readthedocs.io/projects/llvm/en/latest/TableGen/LangRef/#syntax">mechanism</a>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>include <span class="st">"HelloDialect.td"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Our <code>include/Hello</code> directory now looks as follows:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> tree <span class="ex">./include/Hello</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./include/Hello</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> CMakeLists.txt</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloDialect.td</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> HelloOps.td</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> directory, 3 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we need to make a couple of changes to our <code>include/Hello/CMakeLists.txt</code> file:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode cmake code-with-copy"><code class="sourceCode cmake"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_dialect</span>(HelloOps hello)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_doc</span>(HelloDialect HelloDialect Hello/ -gen-dialect-doc)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">add_mlir_doc</span>(HelloOps HelloOps Hello/ -gen-op-doc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that for the dialect definition we use <code>HelloOps</code> instead of <code>HelloDialect</code>, as the former includes the latter. As well, we want to generate documentation for the operations we just introduced, hence, we add the <code>add_mlir_doc</code> command for the <code>HelloOps</code>.</p>
+<p>You can now re-run our <code>build.sh</code> script, and generate again docs and headers:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> ./build.sh <span class="kw">&amp;&amp;</span> <span class="ex">ninja</span> <span class="at">-C</span> build <span class="at">-v</span> mlir-docs mlir-headers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Running <code>ninja</code> in verbose mode (<code>-v</code> option) will show you all <code>mlir-tblgen</code> commands.</p>
+</div>
+</div>
+<p>We can now check that docs for the dialect and the ops were generated:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> tree <span class="ex">build/docs</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">build/docs</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> Hello</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> HelloDialect.md</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> HelloOps.md</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 2 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As well as the corresponding C++ definitions and declarations:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span><span class="op">&gt;</span> tree <span class="ex">build/include/Hello</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">build/include/Hello</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> CMakeFiles</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloDialect.md</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloDialect.md.d</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.cpp.inc</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.cpp.inc.d</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.h.inc</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.h.inc.d</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.md</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOps.md.d</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsDialect.cpp.inc</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsDialect.cpp.inc.d</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsDialect.h.inc</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsDialect.h.inc.d</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsTypes.cpp.inc</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsTypes.cpp.inc.d</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsTypes.h.inc</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> HelloOpsTypes.h.inc.d</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> cmake_install.cmake</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span> directories, 17 files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note the change in the filename pattern, this is due to the fact that we now are using the <code>HelloOps</code> file to define the dialect.</p>
+<p>To checkout the Op definitions, have a look at the files <code>build/include/Hello/HelloOps.*.inc</code>.</p>
 
 
 </section>

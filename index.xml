@@ -144,7 +144,7 @@ No matching items
 </div>
 </div> ]]></description>
   <guid>http://vguerra.net/posts/index.html</guid>
-  <pubDate>Sat, 17 Jun 2023 21:58:23 GMT</pubDate>
+  <pubDate>Fri, 23 Jun 2023 15:59:01 GMT</pubDate>
 </item>
 <item>
   <title>Notebook Chronicles</title>
@@ -160,7 +160,7 @@ No matching items
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="mojo,compilers,notes" data-listing-date-sort="1683072000000" data-listing-file-modified-sort="1687039086629" data-listing-date-modified-sort="1687039086000" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="0" data-categories="mojo,compilers,notes" data-listing-date-sort="1683072000000" data-listing-file-modified-sort="1687535927566" data-listing-date-modified-sort="1687535927000" data-listing-reading-time-sort="3">
 <div class="thumbnail">
 <p><a href="../notes/mojo/advantages-mojo.html"> <!-- img(9CEB782EFEE6)[progressive=false, height=]:notes/mojo/advantages-mojo.html --> </a></p>
 </div>
@@ -201,7 +201,7 @@ Victor Guerra
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="mlir,compilers,notes" data-listing-date-sort="1681430400000" data-listing-file-modified-sort="1687039086629" data-listing-date-modified-sort="1687039086000" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="1" data-categories="mlir,compilers,notes" data-listing-date-sort="1681430400000" data-listing-file-modified-sort="1687535927566" data-listing-date-modified-sort="1687535927000" data-listing-reading-time-sort="1">
 <div class="thumbnail">
 <p><a href="../notes/mlir/mlir-notes.html"> <!-- img(9CEB782EFEE6)[progressive=false, height=]:notes/mlir/mlir-notes.html --> </a></p>
 </div>
@@ -248,7 +248,7 @@ No matching items
 </div>
 </div> ]]></description>
   <guid>http://vguerra.net/notes/index.html</guid>
-  <pubDate>Sat, 17 Jun 2023 21:58:23 GMT</pubDate>
+  <pubDate>Fri, 23 Jun 2023 15:59:01 GMT</pubDate>
 </item>
 </channel>
 </rss>

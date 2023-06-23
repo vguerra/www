@@ -1,9 +1,23 @@
 
+#title-block-header.quarto-title-block.default .quarto-title .title {
+    margin-bottom: 1rem;
+}
+
+#title-block-header.quarto-title-block.default .description > p:last-of-type, #title-block-header.quarto-title-block.default .abstract > p:last-of-type {
+    margin-bottom: 1rem;
+}
+
 .quarto-title-banner {
     margin-block-end: 1rem;
     position: relative;
     margin-top: -50px;
     height: 45%;
+}
+
+.quarto-title-meta {
+    padding-top: 1.0em;
+    padding-bottom: 1.0em;
+    font-size: 85%;
 }
 
 .profile-pic {
