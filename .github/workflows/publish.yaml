@@ -21,7 +21,7 @@ jobs:
 
       - name: Quarto extentions
         run: |
-          quarto install extension sellorm/quarto-social-embeds
+          quarto install --no-prompt extension sellorm/quarto-social-embeds
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
