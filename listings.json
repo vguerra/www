@@ -4,6 +4,15 @@
     "items": [
       "/posts/index.html",
       "/notes/index.html",
+      "/notes/ml/embeddings/embeddings.html",
+      "/notes/mojo/advantages-mojo.html",
+      "/notes/mlir/mlir-notes.html"
+    ]
+  },
+  {
+    "listing": "/notes/index.html",
+    "items": [
+      "/notes/ml/embeddings/embeddings.html",
       "/notes/mojo/advantages-mojo.html",
       "/notes/mlir/mlir-notes.html"
     ]
@@ -11,12 +20,5 @@
   {
     "listing": "/posts/index.html",
     "items": []
-  },
-  {
-    "listing": "/notes/index.html",
-    "items": [
-      "/notes/mojo/advantages-mojo.html",
-      "/notes/mlir/mlir-notes.html"
-    ]
   }
 ]

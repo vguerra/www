@@ -4,28 +4,7 @@
     "href": "index.html",
     "title": "vguerra",
     "section": "",
-    "text": "Coding Adventures\n\n\n\n\n\n\n\n\n\n\nNotebook Chronicles\n\n\n\n\n\n\n\n\n\n\nNotes on MOJO\n\n\n\n5/3/23\n\n\n\n\n\n\n\n\n\n\n\nNotes on MLIR\n\n\n\n4/14/23\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "vguerra",
-    "section": "",
-    "text": "I am Victor Guerra, a software engineer working at the Criteo AI Lab in Paris, France, where I work building scalable machine learning applicaions. I have a special interest in Machine Learning framewroks and compilers."
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Coding Adventures",
-    "section": "",
-    "text": "No matching items"
-  },
-  {
-    "objectID": "notes/index.html",
-    "href": "notes/index.html",
-    "title": "Notebook Chronicles",
-    "section": "",
-    "text": "Notes on MOJO\n\n\n\n\n\n\n\nmojo\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in MOJO programming language\n\n\n\n\n\n\nMay 3, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in the MLIR ecosystem\n\n\n\n\n\n\nApr 14, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\nNo matching items"
+    "text": "Coding Adventures\n\n\n\n\n\n\n\n\n\n\nNotebook Chronicles\n\n\n\n\n\n\n\n\n\n\nThe evolution of Embeddings\n\n\n\n6/28/23\n\n\n\n\n\n\n\n\n\n\n\nNotes on MOJO\n\n\n\n5/3/23\n\n\n\n\n\n\n\n\n\n\n\nNotes on MLIR\n\n\n\n4/14/23\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "notes/mojo/advantages-mojo.html",
@@ -96,5 +75,33 @@
     "title": "Notes on MOJO",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nModular’s official announcement event↩︎"
+  },
+  {
+    "objectID": "notes/ml/embeddings/embeddings.html",
+    "href": "notes/ml/embeddings/embeddings.html",
+    "title": "The evolution of Embeddings",
+    "section": "",
+    "text": "Introduction\nThe notes here are mainly inspired by the recent release of What are embeddings? by Vicki Boykis."
+  },
+  {
+    "objectID": "notes/index.html",
+    "href": "notes/index.html",
+    "title": "Notebook Chronicles",
+    "section": "",
+    "text": "The evolution of Embeddings\n\n\n\n\n\n\n\nml\n\n\nnotes\n\n\n\n\nHow embeddings came to be\n\n\n\n\n\n\nJun 28, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MOJO\n\n\n\n\n\n\n\nmojo\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in MOJO programming language\n\n\n\n\n\n\nMay 3, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\n  \n\n\n\n\nNotes on MLIR\n\n\n\n\n\n\n\nmlir\n\n\ncompilers\n\n\nnotes\n\n\n\n\nKey concepts in the MLIR ecosystem\n\n\n\n\n\n\nApr 14, 2023\n\n\nVictor Guerra\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Coding Adventures",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "vguerra",
+    "section": "",
+    "text": "I am Victor Guerra, a software engineer working at the Criteo AI Lab in Paris, France, where I work building scalable machine learning applicaions. I have a special interest in Machine Learning framewroks and compilers."
   }
 ]

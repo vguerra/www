@@ -14,8 +14,30 @@
 <title>vguerra</title>
 <link>http://vguerra.net/index.html</link>
 </image>
-<generator>quarto-1.3.361</generator>
-<lastBuildDate>Wed, 03 May 2023 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.3.433</generator>
+<lastBuildDate>Wed, 28 Jun 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>The evolution of Embeddings</title>
+  <dc:creator>Victor Guerra</dc:creator>
+  <link>http://vguerra.net/notes/ml/embeddings/embeddings.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The notes here are mainly inspired by the recent release of <a href="https://vickiboykis.com/what_are_embeddings/">What are embeddings?</a> by <a href="https://vickiboykis.com/">Vicki Boykis</a>.</p>
+<p></p><div id="tweet-54693"></div><script>tweet={"url":"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242","author_name":"Vicki","author_url":"https:\/\/twitter.com\/vboykis","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EOk, so LLMs are a Thing. \u003Cbr\u003EHow do they work? Embeddings. \u003Cbr\u003EWTF are embeddings? \u003Cbr\u003EI spent a year doing a deep dive. But when I was researching, I couldn&#39;t find anything that explained them in business, engineering, AND math contexts. So I wrote a thing.\uD83D\uDE80\u003Ca href=\"https:\/\/t.co\/iykVXIuzty\"\u003Ehttps:\/\/t.co\/iykVXIuzty\u003C\/a\u003E\u003C\/p\u003E&mdash; Vicki (@vboykis) \u003Ca href=\"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242?ref_src=twsrc%5Etfw\"\u003EJune 5, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-54693").innerHTML = tweet["html"];</script><p></p>
+
+
+</section>
+
+ ]]></description>
+  <category>ml</category>
+  <category>notes</category>
+  <guid>http://vguerra.net/notes/ml/embeddings/embeddings.html</guid>
+  <pubDate>Wed, 28 Jun 2023 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Notes on MOJO</title>
   <dc:creator>Victor Guerra</dc:creator>
@@ -144,7 +166,7 @@ No matching items
 </div>
 </div> ]]></description>
   <guid>http://vguerra.net/posts/index.html</guid>
-  <pubDate>Fri, 23 Jun 2023 15:59:01 GMT</pubDate>
+  <pubDate>Wed, 28 Jun 2023 20:38:35 GMT</pubDate>
 </item>
 <item>
   <title>Notebook Chronicles</title>
@@ -160,7 +182,45 @@ No matching items
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="mojo,compilers,notes" data-listing-date-sort="1683072000000" data-listing-file-modified-sort="1687535927566" data-listing-date-modified-sort="1687535927000" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="0" data-categories="ml,notes" data-listing-date-sort="1687910400000" data-listing-file-modified-sort="1687984692727" data-listing-date-modified-sort="1687984692000" data-listing-reading-time-sort="1">
+<div class="thumbnail">
+<p><a href="../notes/ml/embeddings/embeddings.html"> <!-- img(9CEB782EFEE6)[progressive=false, height=]:notes/ml/embeddings/embeddings.html --> </a></p>
+</div>
+<div class="body">
+<a href="../notes/ml/embeddings/embeddings.html">
+<h3 class="no-anchor listing-title">
+The evolution of Embeddings
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('ml'); return false;">
+ml
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('notes'); return false;">
+notes
+</div>
+</div>
+<a href="../notes/ml/embeddings/embeddings.html">
+<div class="listing-description">
+<p>How embeddings came to be</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../notes/ml/embeddings/embeddings.html">
+<div class="listing-date">
+Jun 28, 2023
+</div>
+<div class="listing-author">
+Victor Guerra
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="mojo,compilers,notes" data-listing-date-sort="1683072000000" data-listing-file-modified-sort="1687984692727" data-listing-date-modified-sort="1687984692000" data-listing-reading-time-sort="3">
 <div class="thumbnail">
 <p><a href="../notes/mojo/advantages-mojo.html"> <!-- img(9CEB782EFEE6)[progressive=false, height=]:notes/mojo/advantages-mojo.html --> </a></p>
 </div>
@@ -201,7 +261,7 @@ Victor Guerra
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="mlir,compilers,notes" data-listing-date-sort="1681430400000" data-listing-file-modified-sort="1687535927566" data-listing-date-modified-sort="1687535927000" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="2" data-categories="mlir,compilers,notes" data-listing-date-sort="1681430400000" data-listing-file-modified-sort="1687984692727" data-listing-date-modified-sort="1687984692000" data-listing-reading-time-sort="1">
 <div class="thumbnail">
 <p><a href="../notes/mlir/mlir-notes.html"> <!-- img(9CEB782EFEE6)[progressive=false, height=]:notes/mlir/mlir-notes.html --> </a></p>
 </div>
@@ -248,7 +308,7 @@ No matching items
 </div>
 </div> ]]></description>
   <guid>http://vguerra.net/notes/index.html</guid>
-  <pubDate>Fri, 23 Jun 2023 15:59:01 GMT</pubDate>
+  <pubDate>Wed, 28 Jun 2023 20:38:35 GMT</pubDate>
 </item>
 </channel>
 </rss>
