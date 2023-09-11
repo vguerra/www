@@ -9,7 +9,7 @@
 <link>http://vguerra.net/notes/index.html</link>
 <atom:link href="http://vguerra.net/notes/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.433</generator>
+<generator>quarto-1.3.450</generator>
 <lastBuildDate>Wed, 28 Jun 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>The evolution of Embeddings</title>
@@ -22,7 +22,7 @@
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>The notes here are mainly inspired by the recent release of <a href="https://vickiboykis.com/what_are_embeddings/">What are embeddings?</a> by <a href="https://vickiboykis.com/">Vicki Boykis</a>.</p>
-<p></p><div id="tweet-81427"></div><script>tweet={"url":"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242","author_name":"Vicki","author_url":"https:\/\/twitter.com\/vboykis","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EOk, so LLMs are a Thing. \u003Cbr\u003EHow do they work? Embeddings. \u003Cbr\u003EWTF are embeddings? \u003Cbr\u003EI spent a year doing a deep dive. But when I was researching, I couldn&#39;t find anything that explained them in business, engineering, AND math contexts. So I wrote a thing.\uD83D\uDE80\u003Ca href=\"https:\/\/t.co\/iykVXIuzty\"\u003Ehttps:\/\/t.co\/iykVXIuzty\u003C\/a\u003E\u003C\/p\u003E&mdash; Vicki (@vboykis) \u003Ca href=\"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242?ref_src=twsrc%5Etfw\"\u003EJune 5, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-81427").innerHTML = tweet["html"];</script><p></p>
+<p></p><div id="tweet-27592"></div><script>tweet={"url":"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242","author_name":"V (formerly Vicki)","author_url":"https:\/\/twitter.com\/vboykis","html":"\u003Cblockquote class=\"twitter-tweet\" align=\"center\"\u003E\u003Cp lang=\"en\" dir=\"ltr\"\u003EOk, so LLMs are a Thing. \u003Cbr\u003EHow do they work? Embeddings. \u003Cbr\u003EWTF are embeddings? \u003Cbr\u003EI spent a year doing a deep dive. But when I was researching, I couldn&#39;t find anything that explained them in business, engineering, AND math contexts. So I wrote a thing.\uD83D\uDE80\u003Ca href=\"https:\/\/t.co\/iykVXIuzty\"\u003Ehttps:\/\/t.co\/iykVXIuzty\u003C\/a\u003E\u003C\/p\u003E&mdash; V (formerly Vicki) (@vboykis) \u003Ca href=\"https:\/\/twitter.com\/vboykis\/status\/1665705338836746242?ref_src=twsrc%5Etfw\"\u003EJune 5, 2023\u003C\/a\u003E\u003C\/blockquote\u003E\n\u003Cscript async src=\"https:\/\/platform.twitter.com\/widgets.js\" charset=\"utf-8\"\u003E\u003C\/script\u003E\n","width":550,"height":null,"type":"rich","cache_age":"3153600000","provider_name":"Twitter","provider_url":"https:\/\/twitter.com","version":"1.0"};document.getElementById("tweet-27592").innerHTML = tweet["html"];</script><p></p>
 
 
 </section>
@@ -130,8 +130,38 @@
 
 
 
+<section id="glossary" class="level1">
+<h1>Glossary</h1>
+<section id="speculative-operations" class="level2">
+<h2 class="anchored" data-anchor-id="speculative-operations">Speculative operations</h2>
+<p>Means that an operation is allowed to be speculatively executed, i.e.&nbsp;computed early, so the compiler can move th op to another location. An operation can be maked with the <code>AlwaysSPeculatable</code> trait.</p>
+</section>
+<section id="passes" class="level2">
+<h2 class="anchored" data-anchor-id="passes">Passes</h2>
+<p>Represent basic infracstructure for transformation and optimization. Passes are enabled by adding traits to operations.</p>
+<section id="control-flow-sync--control-flow-sink" class="level3">
+<h3 class="anchored" data-anchor-id="control-flow-sync--control-flow-sink">Control Flow Sync (-control-flow-sink)</h3>
+<p>Moves ops that are only used in one branch of a conditional into the relevant branch. Requires op to be memory-effect free.</p>
+</section>
+<section id="control-subexpression-elimination--cse" class="level3">
+<h3 class="anchored" data-anchor-id="control-subexpression-elimination--cse">Control Subexpression Elimination (-cse)</h3>
+<p>Removes unnecessarily repeated computations. Requires op to be memory-effect free.</p>
+</section>
+<section id="sparse-conditional-constant-propagation--sccp" class="level3">
+<h3 class="anchored" data-anchor-id="sparse-conditional-constant-propagation--sccp">Sparse Conditional Constant Propagation (-sccp)</h3>
+<p>Attempts to infer when an operation has a constant output and then replaces the operation with the constant value, propagating the constant value as far as possible.</p>
+</section>
+</section>
+<section id="traits" class="level2">
+<h2 class="anchored" data-anchor-id="traits">Traits</h2>
+<p>Used to specify special properties and constraints of an object. They are a mechanism which abstracts implementation details and properties that are common across many different attributes/operations/types/etc.</p>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
 
 
+</section>
+</section>
+</section>
 
  ]]></description>
   <category>mlir</category>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -153,11 +153,30 @@ gtag('config', 'G-LV0VDL9S7D', { 'anonymize_ip': true});
   
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link active" data-scroll-target="#glossary">Glossary</a>
+  <ul class="collapse">
+  <li><a href="#speculative-operations" id="toc-speculative-operations" class="nav-link" data-scroll-target="#speculative-operations">Speculative operations</a></li>
+  <li><a href="#passes" id="toc-passes" class="nav-link" data-scroll-target="#passes">Passes</a>
+  <ul class="collapse">
+  <li><a href="#control-flow-sync--control-flow-sink" id="toc-control-flow-sync--control-flow-sink" class="nav-link" data-scroll-target="#control-flow-sync--control-flow-sink">Control Flow Sync (-control-flow-sink)</a></li>
+  <li><a href="#control-subexpression-elimination--cse" id="toc-control-subexpression-elimination--cse" class="nav-link" data-scroll-target="#control-subexpression-elimination--cse">Control Subexpression Elimination (-cse)</a></li>
+  <li><a href="#sparse-conditional-constant-propagation--sccp" id="toc-sparse-conditional-constant-propagation--sccp" class="nav-link" data-scroll-target="#sparse-conditional-constant-propagation--sccp">Sparse Conditional Constant Propagation (-sccp)</a></li>
+  </ul></li>
+  <li><a href="#traits" id="toc-traits" class="nav-link" data-scroll-target="#traits">Traits</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -195,7 +214,7 @@ gtag('config', 'G-LV0VDL9S7D', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">Thursday, June 29, 2023</p>
+      <p class="date-modified">Monday, September 11, 2023</p>
     </div>
   </div>
     
@@ -204,8 +223,38 @@ gtag('config', 'G-LV0VDL9S7D', { 'anonymize_ip': true});
 
 </header>
 
+<section id="glossary" class="level1">
+<h1>Glossary</h1>
+<section id="speculative-operations" class="level2">
+<h2 class="anchored" data-anchor-id="speculative-operations">Speculative operations</h2>
+<p>Means that an operation is allowed to be speculatively executed, i.e.&nbsp;computed early, so the compiler can move th op to another location. An operation can be maked with the <code>AlwaysSPeculatable</code> trait.</p>
+</section>
+<section id="passes" class="level2">
+<h2 class="anchored" data-anchor-id="passes">Passes</h2>
+<p>Represent basic infracstructure for transformation and optimization. Passes are enabled by adding traits to operations.</p>
+<section id="control-flow-sync--control-flow-sink" class="level3">
+<h3 class="anchored" data-anchor-id="control-flow-sync--control-flow-sink">Control Flow Sync (-control-flow-sink)</h3>
+<p>Moves ops that are only used in one branch of a conditional into the relevant branch. Requires op to be memory-effect free.</p>
+</section>
+<section id="control-subexpression-elimination--cse" class="level3">
+<h3 class="anchored" data-anchor-id="control-subexpression-elimination--cse">Control Subexpression Elimination (-cse)</h3>
+<p>Removes unnecessarily repeated computations. Requires op to be memory-effect free.</p>
+</section>
+<section id="sparse-conditional-constant-propagation--sccp" class="level3">
+<h3 class="anchored" data-anchor-id="sparse-conditional-constant-propagation--sccp">Sparse Conditional Constant Propagation (-sccp)</h3>
+<p>Attempts to infer when an operation has a constant output and then replaces the operation with the constant value, propagating the constant value as far as possible.</p>
+</section>
+</section>
+<section id="traits" class="level2">
+<h2 class="anchored" data-anchor-id="traits">Traits</h2>
+<p>Used to specify special properties and constraints of an object. They are a mechanism which abstracts implementation details and properties that are common across many different attributes/operations/types/etc.</p>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -559,7 +608,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.433</div>   
+    <div class="nav-footer-left">Published with <a href="https://quarto.org/">Quarto</a> v1.3.450</div>   
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
